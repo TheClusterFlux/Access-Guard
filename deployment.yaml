@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: access-guard-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: access-guard-frontend
+  template:
+    metadata:
+      labels:
+        app: access-guard-frontend
+    spec:
+      containers:
+        - name: access-guard-frontend
+          image: docker.io/keanuwatts/theclusterflux:Access-Guard
+          imagePullPolicy: Always
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: VITE_API_URL
+              value: "https://accessguard-backend.theclusterflux.com"
+            - name: VITE_APP_NAME
+              value: "AccessGuard"
+            - name: VITE_APP_VERSION
+              value: "1.0.0"
+          ports:
+            - containerPort: 3002
+      imagePullSecrets:
+        - name: dockerhub-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: access-guard-frontend
+spec:
+  selector:
+    app: access-guard-frontend
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 3002
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: access-guard-frontend
+  namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - accessguard-frontend.theclusterflux.com
+    secretName: theclusterflux
+  rules:
+  - host: accessguard-frontend.theclusterflux.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: access-guard-frontend
+            port:
+              number: 8080
