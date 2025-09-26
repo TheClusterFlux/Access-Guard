@@ -15,9 +15,8 @@ COPY frontend/ .
 # Build the application
 RUN npm run build
 
-# Remove dev dependencies except vite (needed for preview)
-RUN npm prune --omit=dev
-RUN npm install vite@^4.5.0
+# Install a production web server
+RUN npm install -g serve
 
 # Create non-root user
 RUN addgroup -g 1001 -S nodejs
@@ -34,4 +33,4 @@ EXPOSE 3002
 ENV NODE_ENV=production
 
 # Start the production server
-CMD ["npm", "run", "preview", "--", "--host", "0.0.0.0", "--port", "3002"] 
+CMD ["serve", "-s", "dist", "-l", "3002"] 

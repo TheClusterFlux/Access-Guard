@@ -8,14 +8,9 @@ export default defineConfig({
     host: '0.0.0.0',
     proxy: {
       '/api': {
-        target: process.env.NODE_ENV === 'production' ? 'http://backend:3000' : 'http://localhost:3000',
+        target: process.env.NODE_ENV === 'production' ? 'https://accessguard-backend.theclusterflux.com' : 'http://localhost:3000',
         changeOrigin: true
       }
     }
-  },
-  preview: {
-    port: 3002,
-    host: '0.0.0.0',
-    allowedHosts: '.theclusterflux.com'
   }
 }) 
