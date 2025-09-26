@@ -34,4 +34,4 @@ EXPOSE 3002
 ENV NODE_ENV=production
 
 # Start the production server
-CMD ["npm", "run", "preview", "--", "--host", "0.0.0.0", "--port", "3002", "--allowedHosts", ".theclusterflux.com"] 
+CMD ["npm", "run", "preview", "--", "--host", "0.0.0.0", "--port", "3002"] 
