@@ -12,9 +12,11 @@ import AccessLogs from './components/AccessLogs'
 import Notifications from './components/Notifications'
 
 // Set up axios defaults
-const apiBaseUrl = import.meta.env.VITE_API_URL || '/api'
+const apiBaseUrl = window.APP_CONFIG?.API_URL || import.meta.env.VITE_API_URL || '/api'
 axios.defaults.baseURL = apiBaseUrl
 console.log('API Base URL:', apiBaseUrl)
+console.log('Window config:', window.APP_CONFIG)
+console.log('Vite env:', import.meta.env.VITE_API_URL)
 
 function App() {
   const [user, setUser] = useState(null)

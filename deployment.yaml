@@ -19,12 +19,6 @@ spec:
           env:
             - name: NODE_ENV
               value: "production"
-            - name: VITE_API_URL
-              value: "https://accessguard-backend.theclusterflux.com/api"
-            - name: VITE_APP_NAME
-              value: "AccessGuard"
-            - name: VITE_APP_VERSION
-              value: "1.0.0"
           ports:
             - containerPort: 3002
       imagePullSecrets:

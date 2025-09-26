@@ -12,6 +12,10 @@ RUN npm install
 # Copy source code
 COPY frontend/ .
 
+# Set build-time environment variable
+ARG VITE_API_URL=https://accessguard-backend.theclusterflux.com/api
+ENV VITE_API_URL=$VITE_API_URL
+
 # Build the application
 RUN npm run build
 
