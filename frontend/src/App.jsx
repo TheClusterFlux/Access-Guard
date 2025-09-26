@@ -12,7 +12,9 @@ import AccessLogs from './components/AccessLogs'
 import Notifications from './components/Notifications'
 
 // Set up axios defaults
-axios.defaults.baseURL = '/api'
+const apiBaseUrl = import.meta.env.VITE_API_URL || '/api'
+axios.defaults.baseURL = apiBaseUrl
+console.log('API Base URL:', apiBaseUrl)
 
 function App() {
   const [user, setUser] = useState(null)
@@ -44,14 +46,24 @@ function App() {
 
   const login = async (email, password) => {
     try {
+      console.log('Attempting login with:', { email, password })
       const response = await axios.post('/auth/login', { email, password })
+      console.log('Login response:', response.data)
+      
       const { token, user } = response.data
+      
+      if (!token || !user) {
+        console.error('Missing token or user in response:', response.data)
+        return { success: false, error: 'Invalid response from server' }
+      }
       
       localStorage.setItem('token', token)
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
       setUser(user)
+      console.log('Login successful, user set:', user)
       return { success: true }
     } catch (error) {
+      console.error('Login error:', error)
       return { 
         success: false, 
         error: error.response?.data?.error || 'Login failed' 

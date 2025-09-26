@@ -20,7 +20,7 @@ spec:
             - name: NODE_ENV
               value: "production"
             - name: VITE_API_URL
-              value: "https://accessguard-backend.theclusterflux.com"
+              value: "https://accessguard-backend.theclusterflux.com/api"
             - name: VITE_APP_NAME
               value: "AccessGuard"
             - name: VITE_APP_VERSION
