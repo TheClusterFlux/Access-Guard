@@ -92,8 +92,10 @@ function Dashboard({ user }) {
         { title: 'Generate guest code', description: 'Create access codes for visitors', icon: '🔑', to: '/guest-codes' }
       ],
       security: [
+        { title: 'Resident directory', description: 'Search residents by name, unit, or block', icon: '📞', to: '/residents' },
+        { title: 'Guest codes', description: 'View and verify guest access codes', icon: '🔑', to: '/guest-codes' },
+        { title: 'Deliveries', description: 'View scheduled and pending deliveries', icon: '📦', to: '/deliveries' },
         { title: 'Access logs', description: 'Monitor all access attempts', icon: '📊', to: '/access-logs' },
-        { title: 'Resident directory', description: 'View contact information', icon: '📞', to: '/residents' },
         { title: 'Notifications', description: 'Check security alerts', icon: '🔔', to: '/notifications' }
       ],
       super_admin: [
